@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function tbulletin_menu() {
+
+  $items['forum'] = array(
+    'title' => 'Forums',
+    'page callback' => 'tbulletin_forum_page',
+    'access arguments' => array('access content'),
+    'file' => 'forum.pages.inc',
+  );
+  $items['forum/%'] = array(
+    'title' => 'Forums',
+    'page callback' => 'tbulletin_topic_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    'file' => 'forum.pages.inc',
+  );
+
+  $items['admin/config/tbulletin'] = array(
+    'title' => t('TBulletin'),
+    'description' => 'Configure tbulletin.',
+    'position' => 'left',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+
+  $items['admin/config/tbulletin/forum'] = array(
+    'title' => 'Forum settings',
+    'route_name' => 'tbulletin_forum_settings',
+  );
+
+  $items['admin/config/tbulletin/forum/settings'] = array(
+    'title' => 'Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  $items['admin/config/tbulletin/forum/posticon'] = array(
+    'title' => 'Post Icons',
+    'route_name' => 'tbulletin_forum_posticon',
+  );
+  return $items;
+}
+
+
+/**
+ * Implements hook_node_info().
+ */
+function tbulletin_node_info() {
+  return array(
+    'north_lottery' => array(
+      'name' => t('North lottery'),
+      'base' => 'tbulletin',
+      'description' => t('A <em>forum topic</em> starts a new discussion thread within a forum.'),
+      'title_label' => t('Subject'),
+    ),
+    'middle_lottery' => array(
+      'name' => t('Middle lottery'),
+      'base' => 'tbulletin',
+      'description' => t('A <em>forum topic</em> starts a new discussion thread within a forum.'),
+      'title_label' => t('Subject'),
+    ),
+    'south_lottery' => array(
+      'name' => t('South lottery'),
+      'base' => 'tbulletin',
+      'description' => t('A <em>forum topic</em> starts a new discussion thread within a forum.'),
+      'title_label' => t('Subject'),
+    ),
+
+  );
+}
+
+/**
+ * Implements hook_permission().
+ */
+function tbulletin_permission() {
+  $perms = array(
+    'administer forums' => array(
+      'title' => t('Administer forums'),
+    ),
+  );
+  return $perms;
+}

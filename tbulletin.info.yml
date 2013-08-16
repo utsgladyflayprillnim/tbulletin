@@ -1,0 +1,9 @@
+name: tBulletin
+type: module
+description: 'tBulletin.'
+package: tBulletin
+version: VERSION
+core: 8.x
+dependencies:
+  - node
+  - text

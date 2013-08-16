@@ -1,0 +1,14 @@
+tbulletin_forum_settings:
+  pattern: '/admin/config/tbulletin/forum'
+  defaults:
+    _form: '\Drupal\tbulletin\ForumSettingsForm'
+  requirements:
+    _permission: 'administer forums'
+tbulletin_forum_posticon:
+  pattern: '/admin/config/tbulletin/posticon'
+  defaults:
+    _form: '\Drupal\tbulletin\Form\PostIcon'
+  requirements:
+    _permission: 'administer forums'
+
+

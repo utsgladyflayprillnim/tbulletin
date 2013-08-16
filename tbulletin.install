@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function tbulletin_schema() {
+  $schema['tbulletin_icon'] = array(
+    'fields' => array(
+      'iconid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        ),
+      'title' => array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => '',
+        ),
+      'iconpath' => array(
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => '',
+        ),
+      ),
+    'primary key' => array('iconid'),
+  );
+  return $schema;
+}
