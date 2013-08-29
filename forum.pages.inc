@@ -2,18 +2,19 @@
 
 function tbulletin_forum_page(){
 
+  $types = array_filter(config('tbulletin.settings')->get('forum_allowed_types'));
   $query = db_select( 'node_type', 'nt' );
   $query->fields( 'nt', array('name', 'type') );
-  $query->condition( 'type', array('south_lottery', 'middle_lottery', 'north_lottery'), 'IN' );
+  $query->condition( 'type', $types, 'IN' );
   $results = $query->execute()->fetchAll();
 
   $rows = array();
   $cols = array();
   $query = 'SELECT * FROM {node} n WHERE type=:type';
 
-  $query_comment = 'SELECT SUM(comment_count) FROM {node_field_data} n ';
-  $query_comment .= 'INNER JOIN {node_comment_statistics} ncs ON ncs.nid=n.nid ';
-  $query_comment .= 'WHERE type=:type AND n.status=:status GROUP BY n.nid';
+  $query_comment = 'SELECT SUM(comment_count) FROM {node_comment_statistics} ncs ';
+  $query_comment .= 'INNER JOIN {node_field_data} nfd ON ncs.nid=nfd.nid ';
+  $query_comment .= 'WHERE type=:type AND nfd.status=:status GROUP BY nfd.type';
 
   // Query last post if comments was not found
   $query_last_post = 'SELECT nfd.nid FROM {node_field_data} nfd ';
@@ -29,14 +30,14 @@ function tbulletin_forum_page(){
 
     if (db_query('SELECT c.cid FROM {comment} c WHERE c.nid=:nid ORDER BY c.created DESC LIMIT 0,1', array(':nid' => db_query($query_last_post, array(':type' => $result->type, ':status' => TRUE))->fetchField()))->rowCount()){
 
-      $last_post = db_query('SELECT nfd.title, nfd.nid, u.name, u.uid FROM {node_field_data} nfd LEFT JOIN {comment} c ON c.nid = nfd.nid LEFT JOIN {users} u ON u.uid=c.uid WHERE nfd.type=:type ORDER BY c.created DESC LIMIT 0,1', array(':type'=> $result->type))->fetchObject();
+      $last_post = db_query('SELECT nfd.title, nfd.created, nfd.nid, u.name, u.uid FROM {node_field_data} nfd LEFT JOIN {comment} c ON c.nid = nfd.nid LEFT JOIN {users} u ON u.uid=c.uid WHERE nfd.type=:type ORDER BY c.created DESC LIMIT 0,1', array(':type'=> $result->type))->fetchObject();
 
     }
     else{
-      $last_post = db_query('SELECT nfd.title, nfd.nid, u.name, u.uid FROM {node_field_data} nfd LEFT JOIN {users} u ON u.uid=nfd.uid WHERE nfd.type=:type ORDER BY nfd.created DESC LIMIT 0,1', array(':type'=> $result->type))->fetchObject();
+      $last_post = db_query('SELECT nfd.title, nfd.created, nfd.nid, u.name, u.uid FROM {node_field_data} nfd LEFT JOIN {users} u ON u.uid=nfd.uid WHERE nfd.type=:type ORDER BY nfd.created DESC LIMIT 0,1', array(':type'=> $result->type))->fetchObject();
     }
     if ($last_post){
-      $cols[] = l($last_post->title, 'node/' . $last_post->nid) . t('By') . l($last_post->name, 'user/' . $last_post->uid);
+      $cols[] = l($last_post->title, 'node/' . $last_post->nid) . '<br />'. format_date($last_post->created) .'<br />' . l($last_post->name, 'user/' . $last_post->uid);
     }
 
     $rows[] = $cols;

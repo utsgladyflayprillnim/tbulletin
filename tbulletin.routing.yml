@@ -1,7 +1,7 @@
 tbulletin_forum_settings:
   pattern: '/admin/config/tbulletin/forum'
   defaults:
-    _form: '\Drupal\tbulletin\ForumSettingsForm'
+    _form: '\Drupal\tbulletin\Form\TbulletinForumSettings'
   requirements:
     _permission: 'administer forums'
 tbulletin_forum_posticon:
