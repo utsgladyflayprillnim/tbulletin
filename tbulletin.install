@@ -1,19 +1,6 @@
 <?php
 
 /**
- * Implements hook_enable().
- */
-function tbulletin_enable() {
-
-  node_types_rebuild();
-
-  $types = node_type_get_types();
-  node_add_body_field($types['north_lottery']);
-  node_add_body_field($types['middle_lottery']);
-  node_add_body_field($types['south_lottery']);
-}
-
-/**
  * Implements hook_schema().
  */
 function tbulletin_schema() {

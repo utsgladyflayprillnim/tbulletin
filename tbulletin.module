@@ -48,34 +48,6 @@ function tbulletin_menu() {
 
 
 /**
- * Implements hook_node_info().
- */
-function tbulletin_node_info() {
-  return array(
-    'north_lottery' => array(
-      'name' => t('North lottery'),
-      'base' => 'tbulletin',
-      'description' => t('A <em>forum topic</em> starts a new discussion thread within a forum.'),
-      'title_label' => t('Subject'),
-    ),
-    'middle_lottery' => array(
-      'name' => t('Middle lottery'),
-      'base' => 'tbulletin',
-      'description' => t('A <em>forum topic</em> starts a new discussion thread within a forum.'),
-      'title_label' => t('Subject'),
-    ),
-    'south_lottery' => array(
-      'name' => t('South lottery'),
-      'base' => 'tbulletin',
-      'description' => t('A <em>forum topic</em> starts a new discussion thread within a forum.'),
-      'title_label' => t('Subject'),
-    ),
-
-  );
-}
-
-
-/**
  * Implements hook_permission().
  */
 function tbulletin_permission() {

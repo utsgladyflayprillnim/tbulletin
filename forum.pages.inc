@@ -1,8 +1,17 @@
 <?php
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 function tbulletin_forum_page(){
+  global $base_url;
 
-  $types = array_filter(config('tbulletin.settings')->get('forum_allowed_types'));
+  $types = config('tbulletin.settings')->get('forum_allowed_types');
+  if (!empty($types)){
+    $types = array_filter($types);
+  }
+
+  if (!is_array($types) && empty($types)){
+    return new RedirectResponse(url('admin/config/tbulletin/forum', array('absolute' => TRUE)));
+  }
   $query = db_select( 'node_type', 'nt' );
   $query->fields( 'nt', array('name', 'type') );
   $query->condition( 'type', $types, 'IN' );
