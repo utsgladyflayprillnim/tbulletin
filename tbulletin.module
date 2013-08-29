@@ -13,7 +13,7 @@ function tbulletin_menu() {
   );
   $items['forum/%'] = array(
     'title' => 'Forums',
-    'page callback' => 'tbulletin_topic_page',
+    'page callback' => 'tbulletin_topic_admin_page',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
@@ -74,6 +74,7 @@ function tbulletin_node_info() {
   );
 }
 
+
 /**
  * Implements hook_permission().
  */
@@ -85,3 +86,6 @@ function tbulletin_permission() {
   );
   return $perms;
 }
+
+
+
