@@ -2,7 +2,6 @@
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 function tbulletin_forum_page(){
-  global $base_url;
 
   $types = config('tbulletin.settings')->get('forum_allowed_types');
   if (!empty($types)){
