@@ -72,7 +72,8 @@ function tbulletin_topic_page(){
   $results = $query->execute()->fetchAll();
 
   $rows = array();
-  foreach ($results as $result){
+  foreach ( $results as $result ){
+    $cols = array();
     $cols[] = l( $result->title, 'node/' . $result->nid);
 
     $comments = db_query('SELECT SUM(comment_count) FROM {node_comment_statistics} WHERE nid=:nid', array(':nid' => $result->nid))->fetchField();
@@ -85,7 +86,7 @@ function tbulletin_topic_page(){
     }
     $cols[] = t('by') . '&nbsp;' . l($last_post->name, 'user/'.$last_post->uid) . '&nbsp;' . date('d/m/Y h:i:s', $last_post->created);
     $rows[] = $cols;
-    $cols = array();
+
   }
 
   return theme('table', array('header' => array(t('topics'), t('posts'), t('last post')), 'rows' => $rows));

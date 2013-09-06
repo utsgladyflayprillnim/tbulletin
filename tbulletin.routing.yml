@@ -10,5 +10,17 @@ tbulletin_forum_posticon:
     _form: '\Drupal\tbulletin\Form\PostIcon'
   requirements:
     _permission: 'administer forums'
+tbulletin_forum_page:
+  pattern: '/forum'
+  defaults:
+    _content: '\Drupal\tbulletin\Controller\TbulletinForumController::forumDisplay'
+  requirements:
+    _permission: 'access content'
+tbulletin_topic_page:
+  pattern: '/forum/{term}'
+  defaults:
+    _content: '\Drupal\tbulletin\Controller\TbulletinForumController::topicDisplay'
+  requirements:
+    _permission: 'access content'
 
 

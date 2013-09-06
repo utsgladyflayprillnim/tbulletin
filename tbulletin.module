@@ -7,17 +7,19 @@ function tbulletin_menu() {
 
   $items['forum'] = array(
     'title' => 'Forums',
-    'page callback' => 'tbulletin_forum_page',
-    'access arguments' => array('access content'),
-    'file' => 'forum.pages.inc',
+    'route_name' => 'tbulletin_forum_page',
+    #'page callback' => 'tbulletin_forum_page',
+    #'access arguments' => array('access content'),
+    #'file' => 'forum.pages.inc',
   );
   $items['forum/%'] = array(
     'title' => 'Forums',
-    'page callback' => 'tbulletin_topic_admin_page',
-    'page arguments' => array(1),
-    'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-    'file' => 'forum.pages.inc',
+    'route_name' => 'tbulletin_topic_page'
+    #'page callback' => 'tbulletin_topic_admin_page',
+    #'page arguments' => array(1),
+    #'access arguments' => array('access content'),
+    #'type' => MENU_CALLBACK,
+    #'file' => 'forum.pages.inc',
   );
 
   $items['admin/config/tbulletin'] = array(
